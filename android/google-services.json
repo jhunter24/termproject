@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "659667229929",
+    "firebase_url": "https://platformsofendurance.firebaseio.com",
+    "project_id": "platformsofendurance",
+    "storage_bucket": "platformsofendurance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659667229929:android:d43d7e1d4098e7e9776478",
+        "android_client_info": {
+          "package_name": "edu.uco.jhunter24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659667229929-7gsikh8ss6bpmlag09clgrt3qtdviplo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmHIaWxZ7fgaE4GpHqbT25YHCgGiniJGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659667229929-7gsikh8ss6bpmlag09clgrt3qtdviplo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
