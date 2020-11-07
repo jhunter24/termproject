@@ -51,7 +51,7 @@ class _MainMenuState extends State<MainMenu> {
               FlatButton(
                 onPressed: con.startGame,
                 child: Text(
-                  'Start Game1',
+                  'Start Game!',
                   style: TextStyle(
                     fontFamily: 'GreatVibes',
                     fontSize: 24,
@@ -60,7 +60,16 @@ class _MainMenuState extends State<MainMenu> {
               ),FlatButton(
                 onPressed: con.loadLeaderboard,
                 child: Text(
-                  'Start Game1',
+                  'Leaderboards',
+                  style: TextStyle(
+                    fontFamily: 'GreatVibes',
+                    fontSize: 24,
+                  ),
+                ),
+              ),FlatButton(
+                onPressed: con.signIn,
+                child: Text(
+                  'Sign In',
                   style: TextStyle(
                     fontFamily: 'GreatVibes',
                     fontSize: 24,
@@ -86,5 +95,9 @@ class _Controller {
 
   void loadLeaderboard(){ 
     //TODO LATER ONCE SCORE IS IMPLEMENTED
+  }
+
+  void signIn(){
+    //TODO LATER
   }
 }
