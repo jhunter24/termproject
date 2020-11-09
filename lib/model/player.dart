@@ -21,7 +21,7 @@ class Player extends SpriteComponent implements JoystickListener{
 
 
   void update(double t){
-    
+    super.update(t);
   }
 
   @override

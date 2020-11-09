@@ -1,40 +1,45 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:platformsOfEndurance/controller/firebasecontroller.dart';
 import 'package:platformsOfEndurance/platformOfEndurance.dart';
+import 'package:platformsOfEndurance/screen/leaderboardscreen.dart';
+import 'package:platformsOfEndurance/screen/signinScreen.dart';
 
 class MainMenu extends StatefulWidget {
   static final routeName = '/mainMenu';
   Size screenSize;
-  MainMenu(Size size) {
-    screenSize = size;
-  }
+
 
   @override
   State<StatefulWidget> createState() {
-    return _MainMenuState(this.screenSize);
+    return _MainMenuState();
   }
 }
 
 class _MainMenuState extends State<MainMenu> {
+  User user;
   _Controller con;
   Size screenSize;
-  _MainMenuState(Size size) {
-    screenSize = size;
-  }
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  
+  render(fn) => setState(fn);
 
   @override
   void initState() {
     super.initState();
-    con = _Controller(this, screenSize);
+    con = _Controller(this);
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Center(
         child: Container(
-          width: screenSize.width,
-          height: screenSize.height,
+          
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/mainmenubg.jpg'),
@@ -57,7 +62,8 @@ class _MainMenuState extends State<MainMenu> {
                     fontSize: 24,
                   ),
                 ),
-              ),FlatButton(
+              ),
+              FlatButton(
                 onPressed: con.loadLeaderboard,
                 child: Text(
                   'Leaderboards',
@@ -66,7 +72,8 @@ class _MainMenuState extends State<MainMenu> {
                     fontSize: 24,
                   ),
                 ),
-              ),FlatButton(
+              ),
+              FlatButton(
                 onPressed: con.signIn,
                 child: Text(
                   'Sign In',
@@ -81,23 +88,33 @@ class _MainMenuState extends State<MainMenu> {
         ),
       ),
     );
+    
   }
 }
 
 class _Controller {
   _MainMenuState _state;
   Size _size;
-  _Controller(this._state, this._size);
+  User user;
+
+  _Controller(this._state);
 
   void startGame() {
     runApp(PlatformOfEndurance(_size).widget);
   }
 
-  void loadLeaderboard(){ 
-    //TODO LATER ONCE SCORE IS IMPLEMENTED
+  void loadLeaderboard() {
+    Navigator.pushNamed(_state.context, LeaderboardScreen.routeName);
   }
 
-  void signIn(){
-    //TODO LATER
+  void signIn() async {
+    try{
+    final user =await Navigator.pushNamed(_state.context, SignInScreen.routeName);
+   _state.render((){});
+   print('user $user');
+    }
+    catch(e){
+      print(e.message ?? e.toString());
+    }
   }
 }
