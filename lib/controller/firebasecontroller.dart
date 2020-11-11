@@ -18,12 +18,10 @@ class FirebaseController {
     String email,
     String password,
   ) async {
-    try {
+    
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-    } catch (e) {
-      print(e.message ?? e.toString());
-    }
+   
   }
 
   static Future<void> signOut(User user) async {

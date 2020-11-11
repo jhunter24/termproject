@@ -76,8 +76,6 @@ class _SignInState extends State<SignInScreen> {
                         )
                       ],
                     ),
-                     
-                   
                   ],
                 ),
               ),
@@ -95,8 +93,6 @@ class _Controller {
   void goBack() {
     Navigator.pop(_state.context);
   }
-
-  
 
   void signIn() async {
     if (!_state.formKey.currentState.validate()) return;
@@ -132,8 +128,8 @@ class _Controller {
   }
 
   String passwordValidator(String value) {
-    if (value.toLowerCase().trim().length < 4)
-      return 'Min length of pasword of 4';
+    if (value.toLowerCase().trim().length < 6)
+      return 'Min length of pasword of 6';
     return null;
   }
 
@@ -143,7 +139,12 @@ class _Controller {
     _state.formKey.currentState.save();
     try {
       await FirebaseController.signUp(email, password);
-     
+      
+      
+      MessageDialog.errorMessage(
+          context: _state.context,
+          title: 'Successful sign up',
+          content: 'You may now hit sign in to sign in to the new account');
     } catch (e) {
       MessageDialog.errorMessage(
         context: _state.context,
