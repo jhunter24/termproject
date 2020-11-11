@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_view.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:platformsOfEndurance/controller/firebasecontroller.dart';
+import 'package:platformsOfEndurance/view/message_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
   static const routeName = '/signin';
@@ -76,12 +75,9 @@ class _SignInState extends State<SignInScreen> {
                           child: Text('Sign Up'),
                         )
                       ],
-                    )
-                    /*  Trying to figure out google API error 10
-                   SignInButton(
-                      Buttons.Google,
-                      onPressed: con.googleSignIn,
-                    ), */
+                    ),
+                     
+                   
                   ],
                 ),
               ),
@@ -100,10 +96,7 @@ class _Controller {
     Navigator.pop(_state.context);
   }
 
-  /* void googleSignIn() async {
-    User user = await FirebaseController.googleSignIn();
-    Navigator.pop(_state.context, user);
-  } */
+  
 
   void signIn() async {
     if (!_state.formKey.currentState.validate()) return;
@@ -115,7 +108,11 @@ class _Controller {
       user = await FirebaseController.signIn(email: email, password: password);
       Navigator.pop(_state.context, user);
     } catch (e) {
-      print(e.message() ?? e.toString());
+      MessageDialog.errorMessage(
+        context: _state.context,
+        title: 'Sign In Error',
+        content: e.message ?? e.toString(),
+      );
     }
   }
 
@@ -146,9 +143,13 @@ class _Controller {
     _state.formKey.currentState.save();
     try {
       await FirebaseController.signUp(email, password);
-
+     
     } catch (e) {
-      print(e.message ?? e.toString());
+      MessageDialog.errorMessage(
+        context: _state.context,
+        title: 'Sign Up Error ',
+        content: e.message ?? e.toString(),
+      );
     }
   }
 }

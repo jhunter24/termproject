@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:platformsOfEndurance/model/leaderboard.dart';
+
 
 class FirebaseController {
   static Future signIn({
@@ -20,7 +21,6 @@ class FirebaseController {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-
     } catch (e) {
       print(e.message ?? e.toString());
     }
@@ -30,26 +30,33 @@ class FirebaseController {
     await FirebaseAuth.instance.signOut();
   }
 
-  /* static Future<User> googleSignIn() async {
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    FirebaseAuth auth = FirebaseAuth.instance;
+  
 
-    try {
-      GoogleSignInAccount googleAccount = await googleSignIn.signIn();
+  static Future<void> updateUsername(User user, String username) async { 
+     await user.updateProfile(displayName: username);  
+     user.reload();
+     return user;
+  }
 
-      GoogleSignInAuthentication googleAuth =
-          await googleAccount.authentication;
+  static Future<void> updatePassword({String password,User user}) async{
+    await user.updatePassword(password);
+    user.reload();
+  
+  }
 
-      AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAccount.id);
+  static Future<List<Leaderboard>> getLeaderboard() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(Leaderboard.COLLECTION_NAME)
+        .orderBy(Leaderboard.SCORE, descending: true)
+        .get();
 
-      UserCredential userResult = await auth.signInWithCredential(credential);
-      print('after signInWithCredential(credential) ${userResult.user}');
+    var results = <Leaderboard>[];
 
-      print('User ${userResult.user}');
-      return userResult.user;
-    } catch (e) {
-      print(e.message ?? e.toString());
+    if (querySnapshot.docs.length != 0) {
+      for (var pos in querySnapshot.docs) {
+        results.add(Leaderboard.deserialize(pos.data(), pos.id));
+      }
     }
-  } */
+    return results;
+  }
 }

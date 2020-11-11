@@ -39,7 +39,9 @@ class PlatformOfEndurance extends BaseGame
     super.onReceiveDrag(drag);
   }
 
-  void update(double t) {}
+  void update(double t) {
+    super.update(t);
+  }
 
   void resize(Size size) {
     screenSize = size;
