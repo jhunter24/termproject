@@ -1,5 +1,6 @@
 import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
+import 'package:platformsOfEndurance/platformOfEndurance.dart';
 import 'package:platformsOfEndurance/screen/leaderboardscreen.dart';
 import 'package:platformsOfEndurance/screen/mainMenu.dart';
 import 'package:platformsOfEndurance/screen/settingScreen.dart';
@@ -28,6 +29,7 @@ class GameInitializer extends StatelessWidget {
         SignInScreen.routeName: (context) => SignInScreen(),
         LeaderboardScreen.routeName: (context) => LeaderboardScreen(),
         SettingsScreen.routeName: (context) => SettingsScreen(),
+        PlatformOfEndurance.routeName:(context) => PlatformOfEndurance().widget,
       },
     );
   }

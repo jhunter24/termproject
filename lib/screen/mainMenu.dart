@@ -124,12 +124,10 @@ class _MainMenuState extends State<MainMenu> {
 
 class _Controller {
   _MainMenuState _state;
-  Size _size;
-
   _Controller(this._state);
 
   void startGame() {
-    runApp(PlatformOfEndurance(_size).widget);
+    Navigator.pushNamed(_state.context, PlatformOfEndurance.routeName);
   }
 
   void loadLeaderboard() async {
