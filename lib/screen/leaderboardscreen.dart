@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flame/flame.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -83,6 +83,7 @@ class _LeaderboardState extends State<LeaderboardScreen> {
 }
 
 class _Controller {
+  // ignore: unused_field
   _LeaderboardState _state;
   _Controller(this._state);
 }

@@ -57,6 +57,9 @@ flutter:
     - assets/images/mainmenubg.jpg
     - assets/images/buttonImages.png
     - assets/images/leaderboardbg.jpg
+    - assets/images/groundImage.png
+    - assets/images/uiBackground.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

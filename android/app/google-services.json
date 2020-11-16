@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "915372557129",
+    "firebase_url": "https://platformsofenduran.firebaseio.com",
+    "project_id": "platformsofenduran",
+    "storage_bucket": "platformsofenduran.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915372557129:android:dbf5e006cd0c57be949098",
+        "android_client_info": {
+          "package_name": "edu.uco.jhunter24.platformsOfEndurance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915372557129-vpd0460veh8rb3sgajf660jp6ruttdvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.uco.jhunter24.platformsOfEndurance",
+            "certificate_hash": "14ee374a386bc7da921f0cb6891543b7cc5fa398"
+          }
+        },
+        {
+          "client_id": "915372557129-2rcahsj23pp9hg9esd7hllad8n685j66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtyV8qeMrFWRHVWLb85kJ39YDhSZONpYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915372557129-4simkat96pd3i93o2c6mn192sb5n2tlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

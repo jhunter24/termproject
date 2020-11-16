@@ -5,12 +5,29 @@ import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/rendering.dart';
 
-class Player extends SpriteComponent implements JoystickListener {
-  Player() : super.fromSprite(64.0, 64.0, new Sprite('mainGuy.png'));
-  final JUMP_HEIGHT = 25;
 
+class Player extends SpriteComponent implements JoystickListener {
+  static const COLLECTION_NAME = 'player';
+  static const PLAYER_GOLD = 'gold';
+  static const PLAYER_EXPERIENCE = 'experience';
+  static const PLAYER_LEVEL = 'level';
+  static const PLAYER_SCORE = 'score';
+  //final JUMP_HEIGHT = 25;
+
+  Player() : super.fromSprite(64.0, 64.0, new Sprite('mainGuy.png')) {
+    experienceNeeded = 4000 + (level * 25);
+    userName = 'Test';
+  }
+  String userName;
+  int experienceNeeded;
+  double health = 100;
+  int gold = 0;
+  double experience = 0;
+  int level = 1;
+  int score = 0;
   double currentSpeed = 0;
-  double speed = 5;
+  double speed = 1;
+
   JoystickMoveDirectional _moveDirectional = JoystickMoveDirectional.IDLE;
 
   @override
@@ -30,38 +47,52 @@ class Player extends SpriteComponent implements JoystickListener {
     switch (_moveDirectional) {
       case JoystickMoveDirectional.MOVE_RIGHT:
         this.renderFlipX = false;
-        this.x += (currentSpeed + speed);
+        this.x += speed;
         break;
       case JoystickMoveDirectional.MOVE_LEFT:
         this.renderFlipX = true;
-        this.x -= (currentSpeed + speed);
+        this.x -= speed;
         break;
       case JoystickMoveDirectional.MOVE_UP:
-        this.y -= (currentSpeed + speed);
+        this.y -= speed;
         break;
       case JoystickMoveDirectional.MOVE_DOWN:
-        this.y += (currentSpeed + speed);
+        this.y += speed;
         break;
       case JoystickMoveDirectional.MOVE_UP_RIGHT:
-        this.x += (currentSpeed + speed);
-        this.y -= (currentSpeed + speed);
+        this.x += speed;
+        this.y -= speed;
         break;
       case JoystickMoveDirectional.MOVE_UP_LEFT:
-        this.x -= (currentSpeed + speed);
-        this.y -= (currentSpeed + speed);
+        this.x -= speed;
+        this.y -= speed;
         break;
       case JoystickMoveDirectional.MOVE_DOWN_RIGHT:
-        this.x += (currentSpeed + speed);
-        this.y += (currentSpeed + speed);
+        this.x += speed;
+        this.y += speed;
         break;
       case JoystickMoveDirectional.MOVE_DOWN_LEFT:
-        this.x -= (currentSpeed + speed);
-        this.y += (currentSpeed + speed);
+        this.x -= speed;
+        this.y += speed;
         break;
       case JoystickMoveDirectional.IDLE:
         break;
     }
   }
+
+  void gainExperience(int xp){
+    this.experience += xp;
+    if(this.experience >= this.experienceNeeded){
+      levelUp();
+    }
+  }
+
+  void levelUp(){
+    this.level++;
+    experience = 0;
+  }
+
+
 
   @override
   void joystickAction(JoystickActionEvent event) {}
