@@ -1,14 +1,16 @@
 import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/resizable.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 
 class Background extends Component with Resizable{
- static final Paint _paint = Paint()..color = Color(0xFFFFFFFF);
-
+ 
+  var image = Sprite('background.png');
 
  @override
  void render(Canvas c){
-   c.drawRect(Rect.fromLTWH(0,0,size.width,size.height),_paint);
+   image.renderRect(c, Rect.fromLTWH(0,0,size.width,size.height));
+   
  }
 
   @override

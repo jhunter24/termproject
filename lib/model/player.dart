@@ -1,21 +1,24 @@
-import 'package:flame/components/component.dart';
+
+import 'package:flame/components/animation_component.dart';
+
 import 'package:flame/components/joystick/joystick_component.dart';
 
 import 'package:flame/components/joystick/joystick_events.dart';
-import 'package:flame/sprite.dart';
+
 import 'package:flutter/rendering.dart';
 import 'package:platformsOfEndurance/model/gold.dart';
 
 
-class Player extends SpriteComponent implements JoystickListener {
+class Player extends AnimationComponent implements JoystickListener {
   static const COLLECTION_NAME = 'player';
   static const PLAYER_GOLD = 'gold';
   static const PLAYER_EXPERIENCE = 'experience';
   static const PLAYER_LEVEL = 'level';
   static const PLAYER_SCORE = 'score';
   //final JUMP_HEIGHT = 25;
-
-  Player() : super.fromSprite(64.0, 64.0, new Sprite('mainGuy.png')) {
+  static const ANIMATION_FILE = 'playerAnimation.png';
+  static const SPRITE_COUNT = 9;
+  Player.sequenced(double width, double height, String imagePath, int amount) : super.sequenced(width, height, imagePath, amount, textureWidth:32, textureHeight:32,stepTime: .25){
     experienceNeeded = 4000 + (level * 25);
     userName = 'Test';
   }
@@ -40,6 +43,7 @@ class Player extends SpriteComponent implements JoystickListener {
 
   void render(Canvas c) {
     super.render(c);
+    
   }
 
   void update(double t) {
@@ -62,18 +66,22 @@ class Player extends SpriteComponent implements JoystickListener {
         this.y += speed;
         break;
       case JoystickMoveDirectional.MOVE_UP_RIGHT:
+        this.renderFlipX = false;
         this.x += speed;
         this.y -= speed;
         break;
       case JoystickMoveDirectional.MOVE_UP_LEFT:
+        this.renderFlipX = true;
         this.x -= speed;
         this.y -= speed;
         break;
       case JoystickMoveDirectional.MOVE_DOWN_RIGHT:
+        this.renderFlipX = false;
         this.x += speed;
         this.y += speed;
         break;
       case JoystickMoveDirectional.MOVE_DOWN_LEFT:
+        this.renderFlipX = true;
         this.x -= speed;
         this.y += speed;
         break;

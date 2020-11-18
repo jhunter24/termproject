@@ -17,8 +17,9 @@ import 'model/gold.dart';
 class PlatformOfEndurance extends BaseGame
     with HasWidgetsOverlay, MultiTouchDragDetector {
   static const routeName = '/platformsGame';
-  //Size screenSize;
-  Player p1 = Player();
+  Size screenSize = Size(0, 0);
+  Player p1 =
+      Player.sequenced(64, 64, Player.ANIMATION_FILE, Player.SPRITE_COUNT);
   UserInfoDisplay ui;
   var joystick = JoystickComponent(
     componentPriority: 0,
@@ -33,26 +34,37 @@ class PlatformOfEndurance extends BaseGame
   );
 
   final List<Gold> goldList = [
-    Gold(1.2, 2), // adds a single gold to the goldList
-    Gold.multipleCoins(5, 1, 1.2, 4), // multiple coins added based of count(5) + count * level
-    
+    Gold.sequence(
+      Gold.COIN_SIZE,
+      Gold.COIN_SIZE,
+      Gold.ANIMATION_FILE,
+      Gold.SPRITE_COUNT,
+      px: 1.5,
+      py: 2,
+    ), // adds a single gold to the goldList
+    Gold.multiCoin(
+      Gold.COIN_SIZE,
+      Gold.COIN_SIZE,
+      Gold.ANIMATION_FILE,
+      Gold.SPRITE_COUNT,
+      px:1.5,
+      py:1.5,
+      count:1,
+      level:4,
+    ), // multiple coins added based of count(5) + count * level
   ];
 
   var rng = new Random();
-  Gold gold = Gold(1.2, 2);
 
   PlatformOfEndurance() {
     joystick.addObserver(p1); // attaches our joystick to our player sprite
-    // initialize the gameUI by associating it with the player
-
+    
+    add(Background()); // adds background to screen render
     goldList.forEach((element) {
       this.add(element);
     });
 
-    add(Background()); // adds background to screen render
     add(p1); // adds player to screen
-
-    
 
     add(joystick); // adds the visual joystick
 
@@ -63,22 +75,30 @@ class PlatformOfEndurance extends BaseGame
     addWidgetOverlay(
       'button',
       Positioned(
-        top: 100,
-        left: 300,
-        child: RaisedButton(
-          onPressed: () {
-            p1.health -= 5;
-            if (p1.health == 0) p1.health = 100;
-          },
-          child: Text('damage player'),
+        top: 125,
+        left: 0,
+        child: Row(
+          children: [
+            RaisedButton(
+              onPressed: () {
+                p1.health -= 5;
+                if (p1.health == 0) p1.health = 100;
+              },
+              child: Text('damage player'),
+            ),RaisedButton(onPressed: (){
+              if(p1.health != 100)
+              p1.health+=5;
+              
+            },child: Text('heal player'),)
+          ],
         ),
       ),
     );
     addWidgetOverlay(
       'experience',
       Positioned(
-        top: 50,
-        left: 275,
+        top: 75,
+        left: 0,
         child: RaisedButton(
           onPressed: () {
             p1.gainExperience(rng.nextInt(1000));
@@ -91,11 +111,12 @@ class PlatformOfEndurance extends BaseGame
     addWidgetOverlay(
       'gold',
       Positioned(
-        top: 150,
-        left: 300,
+        top: 174,
+        left: 0,
         child: RaisedButton(
           onPressed: () {
             p1.gold++;
+            p1.score += (5);
             print(p1.gold.toString());
           },
           child: Text('gold'),
@@ -148,7 +169,7 @@ class PlatformOfEndurance extends BaseGame
         print(goldList.length);
         p1.pickUp(e);
         e.pickUp();
-        
+
         remove.add(e);
       }
     }
@@ -164,22 +185,18 @@ class PlatformOfEndurance extends BaseGame
     p1.update(t);
     showScore();
     handleCollisions();
-   
   }
 
   void render(Canvas c) {
     super.render(c);
     ui.render(c);
-    for(Gold e in goldList){
+    for (Gold e in goldList) {
       e.render(c);
     }
-    /* goldList.forEach((element) {
-      element.render(c);
-    }); */
   }
 
   void resize(Size size) {
-    this.size = size;
+    screenSize = size;
     super.resize(size);
   }
 }
