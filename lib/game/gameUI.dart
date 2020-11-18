@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,7 +18,7 @@ class UserInfoDisplay {
   TextPainter tp;
   TextSpan ts, userTS;
 
-  UserInfoDisplay(this.width, this.height, this._observer) {
+  UserInfoDisplay(this.width, this.height, this._observer)  {
     paint = Paint();
     paintBG = Paint();
     healthPaint = Paint();
@@ -44,7 +45,7 @@ class UserInfoDisplay {
       Rect.fromLTRB(
           5,
           (height - 15),
-          (_observer.experienceNeeded / (40 + ((_observer.level * 25) / 100))),
+          102,
           (height - 5)),
       paintBG,
     ); // xp background
@@ -86,7 +87,11 @@ class UserInfoDisplay {
     tp.paint(c, Offset(5.0, 5.0));
   }
 
+  
+
   void update(double t) {
     _observer.update(t);
+
+
   }
 }

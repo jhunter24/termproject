@@ -59,6 +59,8 @@ flutter:
     - assets/images/leaderboardbg.jpg
     - assets/images/groundImage.png
     - assets/images/uiBackground.png
+    - assets/images/goldCoin.png
+    - assets/images/multiCoin.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

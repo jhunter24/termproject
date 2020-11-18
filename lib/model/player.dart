@@ -4,6 +4,7 @@ import 'package:flame/components/joystick/joystick_component.dart';
 import 'package:flame/components/joystick/joystick_events.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/rendering.dart';
+import 'package:platformsOfEndurance/model/gold.dart';
 
 
 class Player extends SpriteComponent implements JoystickListener {
@@ -18,6 +19,7 @@ class Player extends SpriteComponent implements JoystickListener {
     experienceNeeded = 4000 + (level * 25);
     userName = 'Test';
   }
+  
   String userName;
   int experienceNeeded;
   double health = 100;
@@ -26,7 +28,7 @@ class Player extends SpriteComponent implements JoystickListener {
   int level = 1;
   int score = 0;
   double currentSpeed = 0;
-  double speed = 1;
+  double speed = 0.5;
 
   JoystickMoveDirectional _moveDirectional = JoystickMoveDirectional.IDLE;
 
@@ -92,7 +94,11 @@ class Player extends SpriteComponent implements JoystickListener {
     experience = 0;
   }
 
-
+  void pickUp(Gold gold){
+    
+      this.gold += gold.count;
+      this.score += (gold.count * 5);
+  }
 
   @override
   void joystickAction(JoystickActionEvent event) {}

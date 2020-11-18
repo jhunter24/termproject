@@ -23,6 +23,7 @@ class GameInitializer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: MainMenu.routeName,
       routes: {
         MainMenu.routeName: (context) => MainMenu(),
