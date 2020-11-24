@@ -7,7 +7,7 @@ import 'package:platformsOfEndurance/model/leaderboard.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   static const routeName = '/leaderboard';
-
+  static const COLLECTION_NAME = 'leaderboard';
   @override
   State<StatefulWidget> createState() {
     return _LeaderboardState();
@@ -57,7 +57,7 @@ class _LeaderboardState extends State<LeaderboardScreen> {
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [Text(leaderboard[index].user)],
+                          children: [Text(leaderboard[index].user ?? 'n/a')],
                         ),
                         SizedBox(
                           width: 100,
@@ -80,6 +80,10 @@ class _LeaderboardState extends State<LeaderboardScreen> {
       ),
     );
   }
+
+
+
+  
 }
 
 class _Controller {

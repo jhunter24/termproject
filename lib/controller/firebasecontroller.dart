@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:platformsOfEndurance/model/leaderboard.dart';
 
-
 class FirebaseController {
   static Future signIn({
     String email,
@@ -18,28 +17,23 @@ class FirebaseController {
     String email,
     String password,
   ) async {
-    
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-   
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
   }
 
   static Future<void> signOut(User user) async {
     await FirebaseAuth.instance.signOut();
   }
 
-  
-
-  static Future<void> updateUsername(User user, String username) async { 
-     await user.updateProfile(displayName: username);  
-     user.reload();
-     return user;
+  static Future<void> updateUsername(User user, String username) async {
+    await user.updateProfile(displayName: username);
+    user.reload();
+    return user;
   }
 
-  static Future<void> updatePassword({String password,User user}) async{
+  static Future<void> updatePassword({String password, User user}) async {
     await user.updatePassword(password);
     user.reload();
-  
   }
 
   static Future<List<Leaderboard>> getLeaderboard() async {
@@ -56,5 +50,14 @@ class FirebaseController {
       }
     }
     return results;
+  }
+
+  static Future<void> uploadScore({
+    int score,
+    String userName,
+  }) async {
+    await FirebaseFirestore.instance
+        .collection(Leaderboard.COLLECTION_NAME)
+        .add(Leaderboard.serialize(score: score, user: userName));
   }
 }

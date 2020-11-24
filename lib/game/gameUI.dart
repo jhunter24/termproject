@@ -29,12 +29,12 @@ class UserInfoDisplay {
     healthPaint.color = Colors.green;
     position = Position.fromInts(0, 0);
     offset = Offset(width / 2, height / 2);
-    userTS = TextSpan(text: _observer.userName);
+    userTS = TextSpan(text: _observer.getUserName());
 
     backgroundRect =
         Rect.fromCenter(height: height, width: width, center: offset);
     healthBarBG =
-        Rect.fromLTRB(5, (height - 36), (_observer.health + 2), (height - 24));
+        Rect.fromLTRB(5, (height - 36), (_observer.getHealth() + 2), (height - 24));
   }
 
   void render(Canvas c) {
@@ -55,7 +55,7 @@ class UserInfoDisplay {
       Rect.fromLTRB(
           6,
           (height - 14),
-          ((_observer.experience / (40 + ((_observer.level * 25) / 100))) + 6),
+          ((_observer.getExperience() / (40 + ((_observer.getLevel() * 25) / 100))) + 6),
           (height - 6)),
       experiencePaint,
     ); //xp bar
@@ -71,7 +71,7 @@ class UserInfoDisplay {
     // health bar
     c.drawRect(healthBarBG, paintBG); // health bar background
     c.drawRect(
-        Rect.fromLTRB(6, (height - 35), (_observer.health + 1), (height - 25)),
+        Rect.fromLTRB(6, (height - 35), (_observer.getHealth() + 1), (height - 25)),
         healthPaint); // health bar foreground
 
     // display health on the healt bar

@@ -127,7 +127,7 @@ class _Controller {
   _Controller(this._state);
 
   void startGame() {
-    Navigator.pushNamed(_state.context, PlatformOfEndurance.routeName);
+    Navigator.pushNamed(_state.context, PlatformOfEndurance.routeName,arguments: _state.user);
   }
 
   void loadLeaderboard() async {
