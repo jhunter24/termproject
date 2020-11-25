@@ -110,7 +110,7 @@ class Player extends AnimationComponent implements JoystickListener {
   }
 
   void takeDamage() {
-    _health -= 5;// / 100;
+    _health -= 1;// / 100;
 
     if (_health == 0) {
       _death = true;

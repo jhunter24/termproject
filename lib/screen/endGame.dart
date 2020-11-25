@@ -45,22 +45,43 @@ class _EndGameState extends State<EndGame> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'GAME OVER!',
+                      style: TextStyle(fontSize: 32),
+                    )
+                  ],
+                ),
                 TextFormField(
                   autocorrect: false,
                   decoration: InputDecoration(hintText: 'User Name'),
                   onSaved: con.saveUsername,
+                  validator: con.validateUserName,
                 ),
-                RaisedButton(
-                  onPressed: con.submit,
-                  child: Text('Submit'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Player Score: ${player.getScore()}'),
+                  ],
                 ),
-                RaisedButton(
-                  onPressed: con.mainMenu,
-                  child: Text('Main Menu'),
-                ),
-                RaisedButton(
-                  onPressed: con.playAgain,
-                  child: Text('Play Again'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RaisedButton(
+                      onPressed: con.submit,
+                      child: Text('Submit'),
+                    ),
+                    RaisedButton(
+                      onPressed: con.mainMenu,
+                      child: Text('Main Menu'),
+                    ),
+                    RaisedButton(
+                      onPressed: con.playAgain,
+                      child: Text('Play Again'),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -76,13 +97,21 @@ class _Controller {
   _Controller(this._state);
   String userName;
   int score;
-  String createdBy;
 
   void saveUsername(String value) {
-    userName = value;
+    this.userName = value;
+  }
+
+  String validateUserName(String value) {
+    if (value.trim().length < 3)
+      return '3 character min';
+    else
+      return null;
   }
 
   void submit() async {
+    if (!_state.formKey.currentState.validate()) return;
+    _state.formKey.currentState.save();
     try {
       await FirebaseController.uploadScore(
         score: _state.player.getScore(),
