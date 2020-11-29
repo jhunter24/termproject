@@ -62,7 +62,9 @@ flutter:
     - assets/images/goldcoinAnimation.png
     - assets/images/enemySprites.png
     - assets/images/healthpotion.png
-
+    - assets/images/bullet.png
+    - assets/images/rightarrow.png
+    - assets/images/leftarrow.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

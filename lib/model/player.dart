@@ -33,7 +33,7 @@ class Player extends AnimationComponent implements JoystickListener {
   double _experience = 0;
   int _level = 1;
   int _score = 0;
-
+  int _damage = 5;
   double _speed = 0.5;
 
   JoystickMoveDirectional _moveDirectional = JoystickMoveDirectional.IDLE;
@@ -92,8 +92,8 @@ class Player extends AnimationComponent implements JoystickListener {
     }
   }
 
-  void gainExperience(int xp) {
-    this._experience += xp;
+  void gainExperience(int enemyLevel) {
+    this._experience += 100 + (enemyLevel * 100);
     if (this._experience >= this._experienceNeeded) {
       levelUp();
     }
@@ -110,7 +110,7 @@ class Player extends AnimationComponent implements JoystickListener {
   }
 
   void takeDamage() {
-    _health -= 1;// / 100;
+    _health -= 1; //  100;
 
     if (_health == 0) {
       _death = true;
@@ -125,7 +125,7 @@ class Player extends AnimationComponent implements JoystickListener {
   int getLevel() => _level;
   String getUserName() => _userName;
   bool death() => _death;
-
+  int getDamage() => _damage;
   @override
   void joystickAction(JoystickActionEvent event) {}
 
@@ -143,4 +143,9 @@ class Player extends AnimationComponent implements JoystickListener {
   Position getPostion() {
     return this.toPosition();
   }
+
+  void gainScore(int eLevel){
+     _score += (5 * eLevel);
+     
+      }
 }

@@ -8,18 +8,17 @@ class Enemy extends AnimationComponent {
   static const ENEMY_SPRITE = 'enemySprites.png';
   static const ENEMY_SIZE = 24.0;
   static const _speed = 0.6;
-  double w,h;
+  double w, h;
   bool right = true;
   bool _death = false;
-  int _level;
-  int _hp;
+  int _level = 1;
+  int _hp = 100;
   double px;
   double py;
 
   var random = new Random();
-  Enemy(this.right, width, double height, String imagePath, int amount,
-      int playerLevel, this.px, this.py)
-      : super.sequenced(width, height, imagePath, amount,
+  Enemy(this.right, int playerLevel, this.px, this.py)
+      : super.sequenced(ENEMY_SIZE, ENEMY_SIZE, ENEMY_SPRITE, ANIMATION_COUNT,
             textureWidth: 32, textureHeight: 32) {
     _level = (playerLevel + random.nextInt(3));
     _hp = 100 + (_level * 10);
@@ -52,12 +51,22 @@ class Enemy extends AnimationComponent {
     else if (right == false) this.y += _speed;
 
     if (this.x.toInt() == w.toInt()) this.x = 0;
-    if(this.y.toInt() == h.toInt()) this.y = 0;
+    if (this.y.toInt() == h.toInt()) this.y = 0;
+
+    
   }
 
   void render(Canvas c) {
     super.render(c);
   }
+
+  int getLevel() => _level;
+
+  void takeDamage(int dmg) {
+    this._hp -= dmg;
+  }
+
+  int getHealth() => _hp;
 
   
 }
