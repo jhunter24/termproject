@@ -46,7 +46,7 @@ class PlatformOfEndurance extends BaseGame
   var rng = new Random();
   var playerPotionCount = [0, 0, 0];
   // list initializtion that deal with adding/removal of entities
-
+  final MAX_BULLET_COUNT = 10;
   final List<ExperiencePotion> xpPotionList = [];
   final List<DefensePotion> defPotionList = [];
   final List<HealthPotion> potionList = [];
@@ -97,7 +97,6 @@ class PlatformOfEndurance extends BaseGame
     ui = UserInfoDisplay(150, 60, p1);
     bulletControls();
     //test code for testing health bar and experience bar
-    
   }
   //end game
 
@@ -305,7 +304,7 @@ class PlatformOfEndurance extends BaseGame
       add(element);
     });
 
-    if (bulletList.length == 5) {
+    if (bulletList.length == MAX_BULLET_COUNT) {
       var b = bulletList.first;
       b.hit();
       bulletList.remove(b);
@@ -318,7 +317,7 @@ class PlatformOfEndurance extends BaseGame
     bulletList.forEach((element) {
       add(element);
     });
-    if (bulletList.length == 5) {
+    if (bulletList.length == MAX_BULLET_COUNT) {
       var b = bulletList.first;
       b.hit();
       bulletList.remove(b);
@@ -360,7 +359,7 @@ class PlatformOfEndurance extends BaseGame
   void spawnEnemy() {
     for (int i = enemyList.length; i < 8; i++) {
       var enemy = Enemy(rng.nextBool(), p1.getLevel(),
-          rng.nextInt(32).toDouble()+1, rng.nextInt(32).toDouble()+1);
+          rng.nextInt(32).toDouble() + 1, rng.nextInt(32).toDouble() + 1);
       enemyList.add(enemy);
       add(enemy);
     }
@@ -445,10 +444,20 @@ class PlatformOfEndurance extends BaseGame
               bullet.toRect().intersect(enemy.toRect()).height > 0) {
             bulletHit(enemy, bullet);
             remove.add(bullet);
-            if (enemy.getHealth() == 0) {
-              spawnDefPotion(enemy);
-              spawnXpPotion(enemy);
-              spawnHealthPotion(enemy);
+            if (enemy.getHealth() <= 0) {
+              int loot = rng.nextInt(100);
+              if (loot <= 25 && loot > 10) {
+                spawnHealthPotion(enemy);
+              } else if (loot <= 10 && loot > 5) {
+                spawnDefPotion(enemy);
+              } else if (loot <= 5 && loot > 1) {
+                spawnXpPotion(enemy);
+              } else if (loot <= 1) {
+                spawnDefPotion(enemy);
+                spawnHealthPotion(enemy);
+                spawnXpPotion(enemy);
+              }
+
               spawnGold(enemy);
               enemyKill(enemy);
               eRemove.add(enemy);

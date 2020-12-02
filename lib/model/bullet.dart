@@ -16,7 +16,7 @@ class Bullet extends SpriteComponent {
       : super.fromSprite(SIZE, SIZE, Sprite(SPRITE)) {
     this.x = spawnPoint.x;
     this.y = spawnPoint.y + 20;
-    _damage = 5 + (pDmg);
+    _damage = 10 + (pDmg);
   }
 
   void moveRight() {
