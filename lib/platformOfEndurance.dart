@@ -97,17 +97,7 @@ class PlatformOfEndurance extends BaseGame
     ui = UserInfoDisplay(150, 60, p1);
     bulletControls();
     //test code for testing health bar and experience bar
-    addWidgetOverlay(
-        'test',
-        RaisedButton(
-          onPressed: () {
-            Enemy e = Enemy(false, 1, rng.nextInt(5).toDouble()+1,
-                rng.nextInt(5).toDouble()+1);
-            add(e);
-            enemyList.add(e);
-          },
-          child: Text('test'),
-        ));
+    
   }
   //end game
 
