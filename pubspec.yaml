@@ -65,6 +65,8 @@ flutter:
     - assets/images/bullet.png
     - assets/images/rightarrow.png
     - assets/images/leftarrow.png
+    - assets/images/xpPotion.png
+    - assets/images/defensePotion.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

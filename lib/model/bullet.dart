@@ -10,13 +10,12 @@ class Bullet extends SpriteComponent {
   double _speed = 1;
   bool _moveLeft = false;
   bool _hit = false;
-  double w,h;
-
+  double w, h;
 
   Bullet(this._moveLeft, pDmg, Position spawnPoint)
       : super.fromSprite(SIZE, SIZE, Sprite(SPRITE)) {
     this.x = spawnPoint.x;
-    this.y = spawnPoint.y;
+    this.y = spawnPoint.y + 20;
     _damage = 5 + (pDmg);
   }
 
@@ -30,13 +29,12 @@ class Bullet extends SpriteComponent {
     this.x -= _speed;
   }
 
-  void resize(Size size){
+  void resize(Size size) {
     w = size.width;
-    
   }
 
-
   void update(double t) {
+    super.update(t);
     if (_moveLeft) {
       this.renderFlipX = _moveLeft;
       moveLeft();
@@ -45,9 +43,7 @@ class Bullet extends SpriteComponent {
       moveRight();
     }
 
-    if(this.x == w)
-      hit();
-    super.update(t);
+    if (this.x.toInt() == w.toInt() || this.x.toInt() == 0) hit();
   }
 
   void render(Canvas c) {

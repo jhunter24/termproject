@@ -24,12 +24,12 @@ class UserInfoDisplay {
     healthPaint = Paint();
     experiencePaint = Paint();
     experiencePaint.color = Colors.lightBlue[400];
-    paint.color = Colors.tealAccent;
+    paint.color = Colors.transparent;
     paintBG.color = Colors.red;
     healthPaint.color = Colors.green;
     position = Position.fromInts(0, 0);
     offset = Offset(width / 2, height / 2);
-    userTS = TextSpan(text: _observer.getUserName());
+    userTS = TextSpan(text: _observer.getLevel().toString());
 
     backgroundRect =
         Rect.fromCenter(height: height, width: width, center: offset);
@@ -91,7 +91,7 @@ class UserInfoDisplay {
 
   void update(double t) {
     _observer.update(t);
-
+    userTS = TextSpan(text: 'Level: ${_observer.getLevel()}', style: TextStyle(fontSize: 16,color: Colors.black));
 
   }
 }

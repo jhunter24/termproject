@@ -16,7 +16,7 @@ class EndGame extends StatefulWidget {
 }
 
 class _EndGameState extends State<EndGame> {
-  @override
+  
   _Controller con;
 
   void initState() {

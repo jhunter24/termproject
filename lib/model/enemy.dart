@@ -20,6 +20,7 @@ class Enemy extends AnimationComponent {
   Enemy(this.right, int playerLevel, this.px, this.py)
       : super.sequenced(ENEMY_SIZE, ENEMY_SIZE, ENEMY_SPRITE, ANIMATION_COUNT,
             textureWidth: 32, textureHeight: 32) {
+              this.x = this.y = 0;
     _level = (playerLevel + random.nextInt(3));
     _hp = 100 + (_level * 10);
   }
