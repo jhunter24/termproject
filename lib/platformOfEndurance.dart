@@ -97,6 +97,17 @@ class PlatformOfEndurance extends BaseGame
     ui = UserInfoDisplay(150, 60, p1);
     bulletControls();
     //test code for testing health bar and experience bar
+    addWidgetOverlay(
+        'test',
+        RaisedButton(
+          onPressed: () {
+            Enemy e = Enemy(false, 1, rng.nextInt(5).toDouble()+1,
+                rng.nextInt(5).toDouble()+1);
+            add(e);
+            enemyList.add(e);
+          },
+          child: Text('test'),
+        ));
   }
   //end game
 
@@ -303,6 +314,12 @@ class PlatformOfEndurance extends BaseGame
     bulletList.forEach((element) {
       add(element);
     });
+
+    if (bulletList.length == 5) {
+      var b = bulletList.first;
+      b.hit();
+      bulletList.remove(b);
+    }
   } //end shootBulletRight()
 
   void shootBulletLeft() {
@@ -311,6 +328,11 @@ class PlatformOfEndurance extends BaseGame
     bulletList.forEach((element) {
       add(element);
     });
+    if (bulletList.length == 5) {
+      var b = bulletList.first;
+      b.hit();
+      bulletList.remove(b);
+    }
   } // end shootBulletLeft()
 
   //spawn functions
@@ -348,7 +370,7 @@ class PlatformOfEndurance extends BaseGame
   void spawnEnemy() {
     for (int i = enemyList.length; i < 8; i++) {
       var enemy = Enemy(rng.nextBool(), p1.getLevel(),
-          rng.nextInt(20).toDouble(), rng.nextInt(20).toDouble());
+          rng.nextInt(32).toDouble()+1, rng.nextInt(32).toDouble()+1);
       enemyList.add(enemy);
       add(enemy);
     }

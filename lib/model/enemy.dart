@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flame/components/animation_component.dart';
 
-
 class Enemy extends AnimationComponent {
   static const ANIMATION_COUNT = 7;
   static const ENEMY_SPRITE = 'enemySprites.png';
@@ -20,7 +19,7 @@ class Enemy extends AnimationComponent {
   Enemy(this.right, int playerLevel, this.px, this.py)
       : super.sequenced(ENEMY_SIZE, ENEMY_SIZE, ENEMY_SPRITE, ANIMATION_COUNT,
             textureWidth: 32, textureHeight: 32) {
-              this.x = this.y = 0;
+    this.x = this.y = 0;
     _level = (playerLevel + random.nextInt(3));
     _hp = 100 + (_level * 10);
   }
@@ -51,10 +50,8 @@ class Enemy extends AnimationComponent {
       this.x += _speed;
     else if (right == false) this.y += _speed;
 
-    if (this.x.toInt() == w.toInt()) this.x = 0;
-    if (this.y.toInt() == h.toInt()) this.y = 0;
-
-    
+    if (this.x.toInt() >= w.toInt()) this.x = 0;
+    if (this.y.toInt() >= h.toInt()) this.y = 0;
   }
 
   void render(Canvas c) {
@@ -68,6 +65,4 @@ class Enemy extends AnimationComponent {
   }
 
   int getHealth() => _hp;
-
-  
 }
